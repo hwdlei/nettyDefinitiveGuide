@@ -1,5 +1,8 @@
 package com.kangfoo.nettystudy.ch7_1;
 
+import org.msgpack.annotation.Message;
+
+@Message
 public class UserInfo {
 
 	private String name;

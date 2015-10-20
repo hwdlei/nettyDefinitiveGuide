@@ -41,7 +41,7 @@ public class EchoClient {
 	}
 
 	public static void main(String[] args) {
-		int port = 8080;
+		int port = 23000;
 		if (args != null && args.length > 0) {
 			try {
 				port = Integer.valueOf(args[0]);
@@ -50,6 +50,6 @@ public class EchoClient {
 			}
 		}
 
-		new EchoClient().connect(port, "localhost");
+		new EchoClient().connect(port, "192.168.6.129");
 	}
 }
