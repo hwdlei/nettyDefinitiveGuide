@@ -1,4 +1,4 @@
-package com.kangfoo.nettystudy.ch4._4_3.client;
+package com.kangfoo.nettystudy.ch7_1;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,15 +8,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LineBasedFrameDecoder;
-import io.netty.handler.codec.string.StringDecoder;
 
 /**
  * User: kangfoo-mac
  * Date: 14-7-20
- * Time: 下午3:06
+ * Time: 下午6:11
  */
-public class TimeClient {
+public class EchoClient {
 
 	public void connect(int port, String host) {
 		EventLoopGroup group = new NioEventLoopGroup();
@@ -26,9 +24,9 @@ public class TimeClient {
 				.handler(new ChannelInitializer<SocketChannel>() {
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
-						ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
-						ch.pipeline().addLast(new StringDecoder());
-						ch.pipeline().addLast(new TimeClientHandler());
+						ch.pipeline().addLast("msgback decoder", new MsgpackDecoder());
+						ch.pipeline().addLast("msgback encoder", new MsgpackEncoder());
+						ch.pipeline().addLast(new EchoClientHandler(10));
 					}
 				});
 
@@ -43,7 +41,7 @@ public class TimeClient {
 	}
 
 	public static void main(String[] args) {
-		int port = 23000;
+		int port = 8080;
 		if (args != null && args.length > 0) {
 			try {
 				port = Integer.valueOf(args[0]);
@@ -52,6 +50,6 @@ public class TimeClient {
 			}
 		}
 
-		new TimeClient().connect(port, "192.168.6.129");
+		new EchoClient().connect(port, "localhost");
 	}
 }

@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TimeClient {
 
 	public static void main(String[] args) {
-		int port = 8080;
+		int port = 23000;
 		if (args != null && args.length > 0) {
 			try {
 				port = Integer.valueOf(args[0]);
@@ -30,7 +30,7 @@ public class TimeClient {
 		Scanner scanner = null;
 
 		try {
-			socket = new Socket("localhost", port);
+			socket = new Socket("192.168.6.129", port);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintWriter(socket.getOutputStream(), true);
 			scanner = new Scanner(System.in);
